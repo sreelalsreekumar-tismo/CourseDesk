@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --brand: #0f766e;
+  --brand-dark: #115e59;
+  --text: #1f2933;
+  --muted: #52606d;
+  --surface: #ffffff;
+  --page: #f5f7fa;
+  --line: #d9e2ec;
+  --radius: 12px;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}

@@ -1,0 +1,12 @@
+main{
+    padding: 20px;
+    background-color: var(--page);
+
+}
+button{
+    padding: 4px;
+    color: white;
+    background-color: gray;
+    margin: 10px;
+    border-radius: 5px;
+}

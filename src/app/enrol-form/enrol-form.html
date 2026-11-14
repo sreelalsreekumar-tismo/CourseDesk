@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="enrol-form">
+  <label>
+    Name
+    <input type="text" formControlName="name" />
+    @if (form.controls.name.touched && form.controls.name.invalid) {
+      @if (form.controls.name.errors?.['hasDigit']) {
+        <span class="error">Name must not contain digits.</span>
+      } @else {
+        <span class="error">Name is required and must be at least 3 characters.</span>
+      }
+    }
+  </label>
+
+  <label>
+    Email
+    <input type="email" formControlName="email" />
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <span class="error">Enter a valid email address.</span>
+    }
+  </label>
+
+  <label>
+    Phone (optional)
+    <input type="text" formControlName="phone" />
+    @if (form.controls.phone.touched && form.controls.phone.invalid) {
+      <span class="error">Phone must be exactly 10 digits.</span>
+    }
+  </label>
+
+  <button type="submit" [disabled]="form.invalid || sending()">
+    {{ sending() ? 'Sending...' : 'Enrol' }}
+  </button>
+</form>
+
+@if (success()) {
+  <p class="success">{{ success() }}</p>
+}
+@if (serverError()) {
+  <p class="error">{{ serverError() }}</p>
+}   

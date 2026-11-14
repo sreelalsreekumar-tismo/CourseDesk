@@ -1,0 +1,14 @@
+main{
+    background-color: var(--page);
+    padding: 40px;
+    flex:1;
+
+
+}
+
+span{
+    color: green;
+}
+p,h3{
+    color:rgb(212, 140, 31)
+}

@@ -1,0 +1,26 @@
+<main>
+<h1>My enrolments</h1>
+
+@if (loading()) {
+  <p>Loading...</p>
+} @else if (error()) {
+  <p class="error">{{ error() }}</p>
+} @else if (enrolments().length === 0) {
+  <p>You have no enrolments.</p>
+} @else {
+  <ul class="enrolments">
+    @for (e of enrolments(); track e.id) {
+      <li class="enrolment">
+        <div>
+        <p><strong>{{ e.courseTitle }}</strong></p>
+        </div>
+        <div>
+        <p>{{ e.name }}</p>
+        <p>{{ e.email }}</p>
+        <button type="button" (click)="cancel(e.id)">Cancel</button>
+        </div>
+      </li>
+    }
+  </ul>
+}
+</main>

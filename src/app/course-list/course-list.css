@@ -1,0 +1,39 @@
+main{
+    display: grid;
+    align-items: center;
+    background-color: var(--page);
+    height: auto;
+
+}
+.category-bar button{
+    color: var(--brand);
+    margin: 20px;
+    padding:6px;
+    border-radius: 10px;
+    background-color: white;
+}
+.category-bar button:active{
+background-color: var(--brand);
+color:white;
+}
+
+.course-grid{
+      display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  gap: 1rem;
+}
+.course-card{
+    background-color:white;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    
+}
+.save{
+    background-color: var(--brand);
+    color:white;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}

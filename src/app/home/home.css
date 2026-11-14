@@ -1,0 +1,58 @@
+main{
+    display:grid;
+    margin-top: 20px;
+    width: auto;
+}
+section .sec1{
+align-items: center;
+width: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+justify-content: space-around;
+align-items: center ;
+
+  gap:30px
+}
+
+.sec1div{
+    width: auto;
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.sec1div2{
+    display: flex;
+    flex-direction: column;
+}
+.sec1div2 div, .sec1div h2{
+    padding: 0px 20px;
+}
+
+.sec1div2 button{
+    margin: 20px 0px;
+    padding: 8px;
+    border-radius: 7px  ;
+    background-color: var(--brand);
+    color:var(--surface)
+     
+}
+.section2{
+      background-color: var(--line);
+      margin-bottom: 0;
+}
+
+.sec2{
+    display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+    padding: 20px;
+    }
+.sec2 div{
+    display: grid;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}

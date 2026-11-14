@@ -1,0 +1,16 @@
+@if (loading()) {
+  <p>Loading...</p>
+} @else if (error()) {
+  <p class="error">{{ error() }}</p>
+} @else if (course(); as c) {
+  <h1>{{ c.title }}</h1>
+  <p>Category: {{ c.category }}</p>
+  <p>Level: {{ c.level }}</p>
+  <p>Hours: {{ c.hours }}</p>
+  <p>{{ seatsLeft(c) }} of {{ c.seats }} seats are free</p>
+ @if (seatsLeft(c) > 0) {
+    <app-enrol-form [courseId]="c.id" (enrolled)="onEnrolled($event)"></app-enrol-form>
+  } @else {
+    <p>This course is full.</p>
+  }
+}

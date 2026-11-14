@@ -1,0 +1,46 @@
+:root {
+  --brand: #0f766e;
+  --brand-dark: #115e59;
+  --text: #1f2933;
+  --muted: #52606d;
+  --surface: #ffffff;
+  --page: #f5f7fa;
+  --line: #d9e2ec;
+  --radius: 12px;
+}
+/* links, button, table header, focus outline    */
+
+header{
+    padding-top: 20px;
+    background-color: var(--surface);
+    display: flex;
+    justify-content: space-between;
+    align-items: center ;
+    position: sticky;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+li{
+    list-style: none;
+}
+nav a{
+    margin: 10px;
+    text-decoration: none;
+
+}
+header div{
+    width: auto;
+    align-items: center;
+    align-self: center  ;
+}
+
+footer{
+    margin-bottom: 0;
+    padding: 10px;
+   
+    bottom: 0;
+    color: var(--surface);
+    background-color: var(--text);
+}
