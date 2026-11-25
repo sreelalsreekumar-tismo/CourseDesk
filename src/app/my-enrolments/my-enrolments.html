@@ -1,26 +1,40 @@
-<main>
-<h1>My enrolments</h1>
+<main class="page">
+  <h1>My enrolments</h1>
 
-@if (loading()) {
-  <p>Loading...</p>
-} @else if (error()) {
-  <p class="error">{{ error() }}</p>
-} @else if (enrolments().length === 0) {
-  <p>You have no enrolments.</p>
-} @else {
-  <ul class="enrolments">
-    @for (e of enrolments(); track e.id) {
-      <li class="enrolment">
-        <div>
-        <p><strong>{{ e.courseTitle }}</strong></p>
-        </div>
-        <div>
-        <p>{{ e.name }}</p>
-        <p>{{ e.email }}</p>
-        <button type="button" (click)="cancel(e.id)">Cancel</button>
-        </div>
-      </li>
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else {
+    @if (actionError()) {
+      <p class="error">{{ actionError() }}</p>
     }
-  </ul>
-}
+    @if (enrolments().length === 0) {
+      <p class="muted">You have no enrolments.</p>
+    } @else {
+      <ul class="enrolments">
+        @for (e of enrolments(); track e.id) {
+          <li class="enrolment card">
+            <div class="details">
+              <p class="title">{{ e.courseTitle }}</p>
+              @if (editingId() === e.id) {
+                <input type="text" [formControl]="nameCtrl" aria-label="Name" />
+              } @else {
+                <p class="muted">{{ e.name }} &middot; {{ e.email }}</p>
+              }
+            </div>
+            <div class="buttons">
+              @if (editingId() === e.id) {
+                <button type="button" [disabled]="!canSave()" (click)="saveName(e.id)">Save</button>
+                <button type="button" class="secondary" (click)="cancelEdit()">Cancel edit</button>
+              } @else {
+                <button type="button" class="secondary" (click)="startEdit(e)">Edit name</button>
+                <button type="button" class="secondary danger" (click)="cancel(e)">Cancel</button>
+              }
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  }
 </main>

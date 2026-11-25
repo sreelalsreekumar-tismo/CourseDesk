@@ -1,0 +1,88 @@
+.course-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(31, 41, 51, 0.1);
+}
+
+.course-card.saved {
+  border: 2px solid var(--success);
+}
+
+.course-card.full {
+  background: #eceff3;
+}
+
+.course-card p {
+  margin: 0;
+}
+
+.course-title {
+  font-size: 1.1rem;
+  margin: 0;
+  padding-right: 3.5rem;
+}
+
+.saved-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.course-meta {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.level {
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.duration,
+.seats {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.full-text {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--brand);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.save {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+}

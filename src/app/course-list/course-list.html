@@ -1,76 +1,76 @@
-<main>
-  <section class="sec1">
-    <h1>Courses</h1>
-  </section>
+<main class="page">
+  <h1>Courses</h1>
 
-  <section class="sec2">
-     <input type="text" [formControl]="searchCtrl" placeholder="Search by title..." />
-
+  <section class="toolbar">
     <label>
-      Up to {{ maxhr() }} hours
-      <input
-        type="range"
-        min="6"
-        max="12"
-        [value]="maxhr()"
-        (input)="maxhr.set($any($event.target).valueAsNumber)"
-      />
+      Search
+      <input type="text" [formControl]="searchCtrl" placeholder="Search by title..." />
     </label>
 
-   
+    <label>
+      Up to {{ maxHrs() }} hours
+      <input type="range" min="6" max="12" [value]="maxHrs()" (input)="onMaxHours($event)" />
+    </label>
+
+    <label>
+      Sort by
+      <select [value]="sortKey()" (change)="onSort($event)">
+        <option value="title">Title</option>
+        <option value="hours-asc">Fewest hours</option>
+        <option value="hours-desc">Most hours</option>
+      </select>
+    </label>
+
     <div class="category-bar">
-      <button [class.active]="cat() === 'all'" (click)="setCategory('all')">All</button>
+      <a
+        routerLink="/courses"
+        [queryParams]="{ category: null, page: null }"
+        queryParamsHandling="merge"
+        [class.active]="cat() === 'all'"
+        >All</a
+      >
       @for (c of CATEGORIES; track c) {
-        <button [class.active]="cat() === c" (click)="setCategory(c)">
-          {{ c | uppercase }}
-        </button>
+        <a
+          routerLink="/courses"
+          [queryParams]="{ category: c, page: null }"
+          queryParamsHandling="merge"
+          [class.active]="cat() === c"
+          >{{ c | uppercase }}</a
+        >
       }
     </div>
   </section>
 
-  <section class="sec3">
+  <section>
     @if (loading()) {
-      <p>Loading...</p>
+      <p class="muted">Loading...</p>
     } @else if (error()) {
       <p class="error">{{ error() }}</p>
     } @else {
       <p class="summary">
         Showing {{ shown().length }} of {{ courses().length }} courses,
-        {{ totalHrs() }} hours in total. Saved: {{ savedIds().length }}
+        {{ totalHrs() }} hours in total. Saved: {{ saved.count() }}
       </p>
 
       <div class="course-grid">
-        @for (c of shown(); track c.id) {
-          <div class="course-card">
-            <h3 class="course-title">{{ c.title }}</h3>
-            <p class="course-meta">
-              <span class="category">{{ c.category | uppercase }}</span>
-              <span class="level">{{ c.level }}</span>
-            </p>
-            <p class="duration">{{ c.hours }} hours</p>
-            <p class="seats">Seats taken: {{ c.enrolled }} / {{ c.seats }}</p>
-            <a [routerLink]="['/courses', c.id]">View details</a>
-            <button type="button" class="save" (click)="onSave(c.id)">
-  {{ savedIds().includes(c.id) ? 'Saved' : 'Save' }}
-</button>
-
-            <div
-              class="progress"
-              role="progressbar"
-              [attr.aria-valuenow]="c.enrolled"
-              aria-valuemin="0"
-              [attr.aria-valuemax]="c.seats"
-            >
-              <div
-                class="progress-bar"
-                [style.width.%]="c.seats ? (c.enrolled / c.seats) * 100 : 0"
-              ></div>
-            </div>
-          </div>
+        @for (c of pageItems(); track c.id) {
+          <app-course-card [course]="c" [saved]="saved.has(c.id)" (save)="saved.toggle($event)" />
         } @empty {
-          <p>No courses found.</p>
+          <p class="muted">No courses found.</p>
         }
       </div>
+
+      @if (pageCount() > 1) {
+        <nav class="pager" aria-label="Pages">
+          <button type="button" class="secondary" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">
+            Previous
+          </button>
+          <span>Page {{ currentPage() }} of {{ pageCount() }}</span>
+          <button type="button" class="secondary" [disabled]="currentPage() === pageCount()" (click)="goToPage(currentPage() + 1)">
+            Next
+          </button>
+        </nav>
+      }
     }
   </section>
 </main>

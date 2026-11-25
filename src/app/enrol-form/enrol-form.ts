@@ -1,7 +1,17 @@
-import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Enrolment } from '../course';
 import { CourseService } from '../course-service';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+
+function noDigits(control: AbstractControl): ValidationErrors | null {
+  return /\d/.test(control.value ?? '') ? { hasDigit: true } : null;
+}
+
+function phoneOptional(control: AbstractControl): ValidationErrors | null {
+  const value = (control.value ?? '').trim();
+  if (value === '') return null;
+  return /^\d{10}$/.test(value) ? null : { phone: true };
+}
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -10,49 +20,42 @@ import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Va
   templateUrl: './enrol-form.html',
 })
 export class EnrolForm {
-   @Input({ required: true }) courseId!: number
-   @Output() enrolled= new EventEmitter<Enrolment>()
-    fb = inject(FormBuilder) 
-    private courseService = inject(CourseService);
-    sending = signal(false);
-    serverError = signal('');
-    success = signal('');
-  noDigits(control: AbstractControl): ValidationErrors | null {
-  return /\d/.test(control.value ?? '') ? { hasDigit: true } : null;
-}
-phoneOptional(control: AbstractControl): ValidationErrors | null {
-  const value = (control.value ?? '').trim();
-  if (value === '') return null;
-  return /^\d{10}$/.test(value) ? null : { phone: true };
-}form = this.fb.group({
-  name: ['', [Validators.required, Validators.minLength(3), this.noDigits]],
-  email: ['', [Validators.required, Validators.email]],
-  phone: ['', [this.phoneOptional]],
-});
+  readonly courseId = input.required<number>();
+  readonly enrolled = output<Enrolment>();
 
-submit(): void {
-  if (this.form.invalid || this.sending()) return;
+  private fb = inject(FormBuilder);
+  private courseService = inject(CourseService);
 
-  this.sending.set(true);
-  this.serverError.set('');
-  this.success.set('');
+  protected sending = signal(false);
+  protected serverError = signal('');
+  protected success = signal('');
 
-  const { name, email } = this.form.getRawValue();
-
-  this.courseService.enrol(this.courseId, name!.trim(), email!.trim()).subscribe({
-    next: (enrolment) => {
-      this.success.set(
-        `Thank you, ${enrolment.name}! Your reference is ${enrolment.id}.`
-      );
-      this.form.reset();
-      this.enrolled.emit(enrolment);
-      this.sending.set(false);
-    },
-    error: () => {
-      this.serverError.set(
-        'Could not enrol. The email may already be used, or the course is full.'
-      );
-      this.sending.set(false);
-    },
+  protected form = this.fb.nonNullable.group({
+    name: ['', [Validators.required, Validators.minLength(3), noDigits]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [phoneOptional]],
   });
-}}
+
+  protected submit(): void {
+    if (this.form.invalid || this.sending()) return;
+
+    this.sending.set(true);
+    this.serverError.set('');
+    this.success.set('');
+
+    const { name, email } = this.form.getRawValue();
+
+    this.courseService.enrol(this.courseId(), name.trim(), email.trim()).subscribe({
+      next: (enrolment) => {
+        this.success.set(`Thank you, ${enrolment.name}! Your reference is ${enrolment.id}.`);
+        this.form.reset();
+        this.enrolled.emit(enrolment);
+        this.sending.set(false);
+      },
+      error: () => {
+        this.serverError.set('Could not enrol. The email may already be used, or the course is full.');
+        this.sending.set(false);
+      },
+    });
+  }
+}

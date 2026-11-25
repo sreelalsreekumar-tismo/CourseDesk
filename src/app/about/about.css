@@ -1,14 +1,13 @@
-main{
-    background-color: var(--page);
-    padding: 40px;
-    flex:1;
-
-
+.about {
+  max-width: 640px;
+  border-top: 4px solid var(--brand);
 }
 
-span{
-    color: green;
+.about span {
+  color: var(--brand);
+  font-weight: 600;
 }
-p,h3{
-    color:rgb(212, 140, 31)
+
+.about p:last-child {
+  margin: 0;
 }

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   imports: [RouterLink],
@@ -7,8 +7,4 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './home.css',
   templateUrl: './home.html',
 })
-export class Home {
- 
-
-img_path: string = '/images/hero.svg';
-}
+export class Home {}

@@ -21,7 +21,7 @@ export class SignIn {
     if (!name) return;
 
     this.auth.signIn(name);
-    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/courses-list';
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/courses';
     this.router.navigateByUrl(returnUrl);
   }
 }

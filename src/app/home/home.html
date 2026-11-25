@@ -1,50 +1,63 @@
 <main>
-<section>
-    <div class="sec1">
-    <div class="sec1div">
-        <div><h2>Learn the web one course at
-            a time
-        </h2></div>
-        <div class="sec1div2">
-            <div>
-            CoursesDesk lists the short courses 
-            of the training center.Pick a course,
-            see the free seates and entrol in two minutes
-            </div>
-            <div>
-<button type="button" routerLink="/courses-list">Browse course</button>
-            </div>
-        </div>
+  <section class="hero">
+    <div class="hero-inner page">
+      <div class="hero-text">
+        <h1>Learn the web,<br />one course at a time.</h1>
+        <p>
+          CourseDesk lists the <strong>short courses</strong> of the training centre. Pick a
+          course, see the free seats and <em>enrol</em> in two minutes.
+        </p>
+        <a class="button" routerLink="/courses">Browse courses</a>
+      </div>
+      <div class="hero-image">
+        <img src="images/hero.svg" alt="Illustration of students learning on laptops" width="400" height="300" />
+      </div>
     </div>
-    <div>
-        <img src="{{ img_path }}" alt="there is an image">
+  </section>
+
+  <section class="features page">
+    <h2>Why CourseDesk</h2>
+    <div class="feature-grid">
+      <article class="card">
+        <span class="badge">New</span>
+        <h3>Short courses</h3>
+        <p>Every course takes between six and twelve hours. Nothing you cannot finish in a week.</p>
+      </article>
+      <article class="card">
+        <h3>Small groups</h3>
+        <p>At most 30 seats in each course, so every student gets help from the trainer.</p>
+      </article>
+      <article class="card">
+        <h3>Practice every day</h3>
+        <p>Each session ends with a hands-on task that you do in the lab.</p>
+      </article>
     </div>
-</div>   
-</section>
-<section class="section2">
-    <div>
-        <h1>Why CourseDesk</h1>
+  </section>
+
+  <section class="sessions page">
+    <h2>This week's sessions</h2>
+    <div class="table-wrap">
+      <table>
+        <caption>Sessions of the week</caption>
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Time</th>
+            <th scope="col">Course</th>
+            <th scope="col">Room</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td><td>10:00</td><td>HTML Basics</td><td>Lab 1</td></tr>
+          <tr><td>Tuesday</td><td>14:00</td><td>CSS Layout</td><td>Lab 2</td></tr>
+          <tr><td>Wednesday</td><td>10:00</td><td>TypeScript Basics</td><td>Lab 1</td></tr>
+          <tr><td>Thursday</td><td>14:00</td><td>Angular Components</td><td>Lab 3</td></tr>
+          <tr><td>Friday</td><td>11:00</td><td>Docker Basics</td><td>Lab 2</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4">5 sessions this week</td></tr>
+        </tfoot>
+      </table>
     </div>
-    <div class="sec2">
-        <div>
-            <h4>Short courses</h4>
-            <p class="badge">new</p>
-            <p>Every course taken between six and twelve hours.Nothing you
-                cannot finish in a week
-            </p>
-        </div>
-        <div>
-            <h4>small group</h4>
-            <p>At most 30 seats in each course.
-                So every student gets help from the trainer
-            </p>
-        </div>
-        <div>
-            <h4>practice everyday</h4>
-            <p>Each session end with a hands on 
-                task that you do in the tab
-            </p>
-        </div>
-    </div>
-</section>
+  </section>
 </main>

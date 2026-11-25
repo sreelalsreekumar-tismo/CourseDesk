@@ -1,10 +1,11 @@
-<main>
-  <h1>Sign in</h1>
-  type your name to continue ,no password is needed
-  <br>
-  <label>
-    Name
-    <input type="text" [formControl]="nameCtrl" />
-  </label>
-  <button type="button" (click)="signIn()">Sign in</button>
+<main class="page">
+  <form class="card sign-in" (submit)="$event.preventDefault(); signIn()">
+    <h1>Sign in</h1>
+    <p class="muted">Type your name to continue. No password is needed.</p>
+    <label>
+      Name
+      <input type="text" [formControl]="nameCtrl" placeholder="Your name" />
+    </label>
+    <button type="submit">Sign in</button>
+  </form>
 </main>

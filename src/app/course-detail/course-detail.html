@@ -1,16 +1,30 @@
-@if (loading()) {
-  <p>Loading...</p>
-} @else if (error()) {
-  <p class="error">{{ error() }}</p>
-} @else if (course(); as c) {
-  <h1>{{ c.title }}</h1>
-  <p>Category: {{ c.category }}</p>
-  <p>Level: {{ c.level }}</p>
-  <p>Hours: {{ c.hours }}</p>
-  <p>{{ seatsLeft(c) }} of {{ c.seats }} seats are free</p>
- @if (seatsLeft(c) > 0) {
-    <app-enrol-form [courseId]="c.id" (enrolled)="onEnrolled($event)"></app-enrol-form>
-  } @else {
-    <p>This course is full.</p>
+<main class="page">
+  <a class="back" routerLink="/courses">&larr; Back to courses</a>
+
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else if (course(); as c) {
+    <div class="detail">
+      <section class="card info">
+        <span class="badge">{{ c.category }}</span>
+        <h1>{{ c.title }}</h1>
+        <dl>
+          <div><dt>Level</dt><dd>{{ c.level }}</dd></div>
+          <div><dt>Hours</dt><dd>{{ c.hours }}</dd></div>
+        </dl>
+        <p class="seats-free">{{ seatsLeft(c) }} of {{ c.seats }} seats are free</p>
+      </section>
+
+      <section class="card enrol">
+        <h2>Enrol</h2>
+        @if (seatsLeft(c) > 0) {
+          <app-enrol-form [courseId]="c.id" (enrolled)="onEnrolled()"></app-enrol-form>
+        } @else {
+          <p class="error">This course is full.</p>
+        }
+      </section>
+    </div>
   }
-}
+</main>

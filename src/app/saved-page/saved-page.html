@@ -1,0 +1,17 @@
+<main class="page">
+  <h1>Saved courses ({{ saved.count() }})</h1>
+
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else if (savedCourses().length === 0) {
+    <p class="muted">No saved courses yet. <a routerLink="/courses">Browse the courses</a></p>
+  } @else {
+    <div class="course-grid">
+      @for (c of savedCourses(); track c.id) {
+        <app-course-card [course]="c" [saved]="true" (save)="saved.toggle($event)" />
+      }
+    </div>
+  }
+</main>

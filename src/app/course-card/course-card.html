@@ -1,1 +1,39 @@
-<p>course-card works!</p>
+@let c = course();
+<article class="card course-card" [class.saved]="saved()" [class.full]="seatsLeft(c) <= 0">
+  @if (saved()) {
+    <span class="badge saved-badge">Saved</span>
+  }
+  <h3 class="course-title">{{ c.title }}</h3>
+  <p class="course-meta">
+    <span class="category badge">{{ c.category | uppercase }}</span>
+    @switch (c.level) {
+      @case ('beginner') { <span class="level">Beginner</span> }
+      @case ('intermediate') { <span class="level">Intermediate</span> }
+      @default { <span class="level">Advanced</span> }
+    }
+  </p>
+  <p class="duration">{{ c.hours }} hours</p>
+
+  <div
+    class="progress"
+    role="progressbar"
+    aria-valuemin="0"
+    [attr.aria-valuenow]="c.enrolled"
+    [attr.aria-valuemax]="c.seats"
+  >
+    <div class="progress-bar" [style.width.%]="percent(c)"></div>
+  </div>
+  <p class="seats">
+    {{ c.enrolled }} of {{ c.seats }} seats taken
+    @if (seatsLeft(c) <= 0) {
+      <span class="full-text">(full)</span>
+    }
+  </p>
+
+  <div class="actions">
+    <a [routerLink]="['/courses', c.id]">View details</a>
+    <button type="button" class="save" (click)="save.emit(c.id)">
+      {{ saved() ? 'Unsave' : 'Save' }}
+    </button>
+  </div>
+</article>
